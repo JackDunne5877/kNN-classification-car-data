@@ -25,3 +25,17 @@ y = list(cls)
 
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
 
+model = KNeighborsClassifier(n_neighbors=5)
+model.fit(x_train, y_train)
+accuracy = model.score(x_test, y_test)
+print("model accuracy is ", accuracy)
+
+predicted = model.predict(x_test)
+names = ['unaccurate', 'accurate', 'good', 'verygood']
+
+"""return accuracy stats of our predictions, as well as the neighbors of a given point"""
+for x in range(len(predicted)):
+    print("Predicted: ", names[predicted[x]], "Data:", x_test[x], "Actual: ", y_test[x])
+    neighbors = model.kneighbors([x_test[x]], 5, True)
+    print(neighbors)
+
